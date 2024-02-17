@@ -1,0 +1,118 @@
+.calculator {
+    width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    background-color: #283637;
+}
+
+.calculator.light {
+    background-color: #f5f5f5;
+}
+
+.calculator__display {
+    width: 100%;
+    height: 30%;
+    color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 20px;
+    font-size: 2rem;
+}
+
+.calculator.light .calculator__display {
+    color: #293738;
+}
+
+.calculator__display__title {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.calculator__display__input {
+    color: #5b6b6b;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.calculator__display__output {
+    font-size: 3.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.calculator__divs {
+    width: 100%;
+    height: 70%;
+    display: grid;
+    grid-template-rows: 1fr 4fr;
+}
+
+.calculator__divs .calculator__divs__keys {
+    padding-left: 10px;
+    padding-right: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    place-content: center;
+}
+
+.calculator__divs__keys div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1/1;
+    color: #fff;
+    font-size: 2rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 100%;
+}
+
+.calculator.light .calculator__divs__keys div {
+    color: #8ba2a2;
+}
+
+.keys__reset {
+    background-color: #3f5050;
+}
+
+.calculator.light .calculator__divs__keys div.keys__reset {
+    background-color: transparent;
+    color: #293738;
+}
+
+.calculator__divs__keys div.keys__operators, .calculator.light .calculator__divs__keys div.keys__operators{
+    background-color: #f5f5f5;
+    color: #0D9276;
+}
+
+.calculator__divs__keys div:active, .calculator__divs__keys div.keys__reset:active, 
+.calculator__divs__keys div.keys__operators:active, .calculator.light .calculator__divs__keys div.keys__reset:active,
+.calculator.light .calculator__divs__keys div.keys__operators:active {
+    background-color: #5b6b6b;
+    color: #fff;
+}
+
+@media screen and (min-height: 800px) {
+    .calculator__divs {
+        height: 60%;
+    }
+
+    .calculator__display {
+        height: 40%;
+        font-size: 2.5rem;
+        padding: 20px 20px;
+        gap: 20px;
+    }
+    
+}
+
