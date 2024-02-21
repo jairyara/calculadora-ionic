@@ -90,7 +90,10 @@
     color: #293738;
 }
 
-.calculator__divs__keys div.keys__operators, .calculator.light .calculator__divs__keys div.keys__operators{
+.calculator__divs__keys div.keys__operators, 
+.calculator.light .calculator__divs__keys div.keys__operators,
+.calculator__divs__keys div.keys__functions, 
+.calculator.light .calculator__divs__keys div.keys__functions {
     background-color: #f5f5f5;
     color: #0D9276;
 }
@@ -102,17 +105,5 @@
     color: #fff;
 }
 
-@media screen and (min-height: 800px) {
-    .calculator__divs {
-        height: 60%;
-    }
 
-    .calculator__display {
-        height: 40%;
-        font-size: 2.5rem;
-        padding: 20px 20px;
-        gap: 20px;
-    }
-    
-}
 
