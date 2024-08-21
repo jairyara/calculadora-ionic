@@ -1,12 +1,49 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {UseCalculator} from "@/types/CalculatorTypes";
 
-export const useCalculator = (): UseCalculator => {
+export const useCalculator = (): {
+    result: string;
+    handleReset: () => void;
+    input: string;
+    handleEqual: () => void;
+    trigFunctions: (value: string) => void;
+    handleInput: (value: string) => void;
+    calculateResult: () => void;
+    handleDelete: () => void;
+    exponent: (value: string) => void
+} => {
     const [input, setInput] = useState('');
     const [result, setResult] = useState('0');
     const [lastResult, setLastResult] = useState('');
 
     const handleInput = (value: string) => {
+        const lastInput = input.slice(-1);
+        const operators = ['+', '-', '*', '/', '.', '^', '(', ')'];
+
+        const openParenthesesCount = (input.match(/\(/g) || []).length;
+        const closeParenthesesCount = (input.match(/\)/g) || []).length;
+
+        if (input === '' && (value === '0' || value === '00')) {
+            return;
+        }
+
+        if (input === '0' && value !== '.') {
+            setInput(value);
+        }
+
+        if (value === '()') {
+            if (operators.includes(lastInput) || input === '' || lastInput === '(') {
+                setInput(input + '(');
+            } else if (openParenthesesCount > closeParenthesesCount && !operators.includes(lastInput)) {
+                setInput(input + ')');
+            }
+            return;
+        }
+
+        if (operators.includes(lastInput) && operators.includes(value)) {
+            return;
+        }
+
         if (lastResult !== "") {
             setInput(lastResult + value);
             setLastResult("");
@@ -17,7 +54,8 @@ export const useCalculator = (): UseCalculator => {
 
     const calculateResult = () => {
         try {
-            const calculatedResult = eval(input);
+            const expression = input.replace('^', '**');
+            const calculatedResult = eval(expression);
             const roundedResult = parseFloat(calculatedResult.toFixed(10));
             if (roundedResult === Infinity || roundedResult === -Infinity) {
                 setResult("Error");
@@ -45,38 +83,25 @@ export const useCalculator = (): UseCalculator => {
         }
     }
 
-    const handleSqrt = () => {
-        try {
-            setInput(input + "√");
-            const inputAfterSqrt = input.slice(-1);
-            if (!isNaN(parseInt(inputAfterSqrt))) {
-                const sqrtResult = Math.sqrt(parseFloat(input));
-                setResult(sqrtResult.toString());
-                return;
-            }
-        } catch (error) {
-            setResult(result);
-        }
-    }
-
-    const calculatePercentage = () => {
-        try {
-            setInput(input + "%");
-            const inputAfterPercentage = input.slice(-1);
-            if (!isNaN(parseInt(inputAfterPercentage))) {
-                const percentageResult = parseFloat(input) / 100;
-                setResult(percentageResult.toString());
-                return;
-            }
-        } catch (error) {
-            setResult(result);
-        }
-    };
-
     const handleEqual = () => {
         calculateResult();
         setLastResult(result);
         setInput("");
+    }
+
+    const trigFunctions = (value: string) => {
+        if (value === 'sin') {
+            setInput(input + 'Math.sin(');
+        } else if (value === 'cos') {
+            setInput(input + 'Math.cos(');
+        } else if (value === 'tan') {
+            setInput(input + 'Math.tan(');
+        }
+    }
+
+    const exponent = (value: string) => {
+        setInput(input + value);
+        calculateResult();
     }
 
     return {
@@ -86,9 +111,9 @@ export const useCalculator = (): UseCalculator => {
         calculateResult,
         handleReset,
         handleDelete,
-        handleSqrt,
-        calculatePercentage,
-        handleEqual
+        handleEqual,
+        trigFunctions,
+        exponent
     };
 
 }

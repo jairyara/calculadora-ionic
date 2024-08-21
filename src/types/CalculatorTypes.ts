@@ -5,7 +5,6 @@ export type UseCalculator = {
     calculateResult: () => void;
     handleReset: () => void;
     handleDelete: () => void;
-    handleSqrt: () => void;
-    calculatePercentage: () => void;
     handleEqual: () => void;
+    handleTrigFunction: (fn: string) => void;
 }
