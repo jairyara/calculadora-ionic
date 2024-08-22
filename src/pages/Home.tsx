@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState, useEffect} from 'react';
+import {useEffect} from 'react';
 import {IonIcon} from '@ionic/react';
 import {backspaceOutline, moonOutline, sunnyOutline} from 'ionicons/icons';
 import './Home.css';

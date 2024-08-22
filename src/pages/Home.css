@@ -31,7 +31,6 @@
     gap: 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     background-image: linear-gradient(to top, var(--bg-container-dark-accent)30%, var(--bg-container-dark) 50%);
     transition: background-color 1s ease, color 1s ease, background-image 1s ease;
 }
@@ -42,7 +41,7 @@
 
 .calculator__display {
     width: 100%;
-    height: 35%;
+    height: calc(35% - 2rem);
     color: var(--color-btn-text-dark);
     display: grid;
     grid-template-rows: 1fr 2fr 1fr;
@@ -100,7 +99,7 @@
 
 .calculator__divs {
     width: 100%;
-    height: 65%;
+    height: calc(65% - 2rem);
     padding: 0 1rem;
     display: grid;
     grid-template-rows: 1fr 4fr;

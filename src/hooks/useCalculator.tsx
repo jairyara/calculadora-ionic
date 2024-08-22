@@ -1,7 +1,6 @@
-import React, {useState} from 'react';
-import {UseCalculator} from "@/types/CalculatorTypes";
+import {useState} from 'react';
 
-export const useCalculator = (): {
+export const useCalculator = ():{
     result: string;
     handleReset: () => void;
     input: string;
@@ -11,7 +10,7 @@ export const useCalculator = (): {
     calculateResult: () => void;
     handleDelete: () => void;
     exponent: (value: string) => void
-} => {
+}  => {
     const [input, setInput] = useState('');
     const [result, setResult] = useState('0');
     const [lastResult, setLastResult] = useState('');
@@ -54,9 +53,23 @@ export const useCalculator = (): {
 
     const calculateResult = () => {
         try {
-            const expression = input.replace('^', '**');
+
+            let expression = input;
+
+            if (input.includes('^')) {
+                expression = input.replace('^', '**');
+            } else if (input.includes('sin')) {
+                expression = input.replace('sin', 'Math.sin');
+            } else if (input.includes('cos')) {
+                expression = input.replace('cos', 'Math.cos');
+            } else if (input.includes('tan')) {
+                expression = input.replace('tan', 'Math.tan');
+            }
+
             const calculatedResult = eval(expression);
-            const roundedResult = parseFloat(calculatedResult.toFixed(10));
+            const roundedResult = parseFloat(calculatedResult.toFixed(5))
+
+
             if (roundedResult === Infinity || roundedResult === -Infinity) {
                 setResult("Error");
                 setInput("");
@@ -90,12 +103,13 @@ export const useCalculator = (): {
     }
 
     const trigFunctions = (value: string) => {
+
         if (value === 'sin') {
-            setInput(input + 'Math.sin(');
+            setInput(input + 'sin(');
         } else if (value === 'cos') {
-            setInput(input + 'Math.cos(');
+            setInput(input + 'cos(');
         } else if (value === 'tan') {
-            setInput(input + 'Math.tan(');
+            setInput(input + 'tan(');
         }
     }
 
